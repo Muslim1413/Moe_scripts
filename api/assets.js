@@ -1,54 +1,55 @@
 // ═══════════════════════════════════════════════════════════════
 // Vercel Serverless Function - Asset Library API
-// Deploy: vercel.com (drag & drop or CLI)
+// Simple in-memory storage
 // ═══════════════════════════════════════════════════════════════
 
-// CORS headers for cross-origin requests
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-};
-
-// In-memory storage (for demo - use DB in production)
-// For persistent storage, use Vercel KV, MongoDB, or PostgreSQL
+// In-memory database (resets on each cold start)
 let assetsDB = {
   assets: [],
   nextId: 1
 };
 
-// Helper: Parse query parameters
-function parseQuery(url) {
-  const params = {};
-  const searchParams = new URL(url, 'http://localhost').searchParams;
-  for (const [key, value] of searchParams) {
-    params[key] = value;
-  }
-  return params;
-}
-
 // Main handler
 export default async function handler(req, res) {
+  // CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     return res.status(200).json({ ok: true });
   }
 
-  const { method } = req;
+  const { method, query, body } = req;
 
   try {
     // GET - List/Filter assets
     if (method === 'GET') {
-      const query = parseQuery(req.url);
       let filtered = [...assetsDB.assets];
 
       // Filter by category
-      if (query.cat && query.cat !== 'Hammasi' && query.cat !== 'All') {
+      if (query.cat && query.cat !== 'All') {
         filtered = filtered.filter(a => a.mainCategory === query.cat);
       }
 
       // Filter by sub-category
-      if (query.sub && query.sub !== 'Hammasi' && query.sub !== 'All') {
+      if (query.sub && query.sub !== 'All') {
+        filtered = filtered.filter(a => a.subCategory === query.sub);
+      }
+
+      // Search query
+      if (query.q) {
+        const q = query.q.toLowerCase();
+        filtered = filtered.filter(a => {
+          return a.name.toLowerCase().includes(q) ||
+                 (Array.isArray(a.tags) && a.tags.some(t => t.toLowerCase().includes(q))) ||
+                 (a.description && a.description.toLowerCase().includes(q));
+        });
+      }
+
+      return res.status(200).json(filtered);
+    }
         filtered = filtered.filter(a => a.subCategory === query.sub);
       }
 
@@ -108,7 +109,6 @@ export default async function handler(req, res) {
 
     // DELETE - Remove asset
     if (method === 'DELETE') {
-      const query = parseQuery(req.url);
       const id = parseInt(query.id);
 
       if (!id) {
@@ -128,13 +128,6 @@ export default async function handler(req, res) {
 
   } catch (error) {
     console.error('API Error:', error);
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message || 'Internal server error' });
   }
 }
-
-// Apply CORS headers to all responses
-export const config = {
-  api: {
-    bodyParser: true
-  }
-};
