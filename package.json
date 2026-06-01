@@ -3,6 +3,7 @@
   "version": "4.0.0",
   "description": "Personal 3D Asset Library - Chaos Cosmos Style",
   "main": "api/assets.js",
+  "type": "commonjs",
   "scripts": {
     "dev": "vercel dev",
     "deploy": "vercel --prod"
@@ -21,6 +22,6 @@
     "url": "https://github.com/Muslim1413/Moe_scripts"
   },
   "engines": {
-    "node": ">=18.x"
+    "node": "18.x"
   }
 }
