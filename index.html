@@ -8,13 +8,6 @@
   <!-- Tabler Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   
-  <!-- React & ReactDOM -->
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  
-  <!-- Babel for JSX (development only) -->
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  
   <style>
     * {
       margin: 0;
@@ -32,6 +25,15 @@
     #root {
       width: 100vw;
       height: 100vh;
+    }
+    
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-size: 24px;
+      color: #6C63FF;
     }
     
     /* Custom scrollbar */
@@ -55,16 +57,101 @@
   </style>
 </head>
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <div class="loading">
+      <div>
+        <div style="text-align: center;">
+          <div style="font-size: 48px; margin-bottom: 16px;">⬢</div>
+          <div>My Asset Library</div>
+          <div style="font-size: 14px; color: #888; margin-top: 8px;">Loading...</div>
+        </div>
+      </div>
+    </div>
+  </div>
   
-  <script type="text/babel" src="AssetLibrary_Cosmos.jsx"></script>
+  <!-- React & ReactDOM from CDN -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   
-  <script type="text/babel">
-    // Render app
-    const { default: MyAssetLibrary } = window;
-    ReactDOM.createRoot(document.getElementById('root')).render(
-      <MyAssetLibrary />
-    );
+  <!-- Main App Script -->
+  <script>
+    // Simple demo app (no external JSX file needed)
+    const { useState, useEffect, useCallback } = React;
+    
+    function DemoApp() {
+      return React.createElement('div', {
+        style: {
+          display: 'flex',
+          height: '100vh',
+          background: '#0a0a15',
+          color: '#fff',
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          gap: '24px'
+        }
+      },
+        React.createElement('div', { style: { fontSize: '64px' }}, '⬢'),
+        React.createElement('h1', { 
+          style: { 
+            fontSize: '32px', 
+            fontWeight: 700,
+            letterSpacing: '-0.02em'
+          }
+        }, 'My Asset Library'),
+        React.createElement('p', { 
+          style: { 
+            fontSize: '16px', 
+            color: '#888',
+            maxWidth: '500px',
+            textAlign: 'center',
+            lineHeight: 1.6
+          }
+        }, 'Personal 3D Asset Management System'),
+        React.createElement('div', {
+          style: {
+            marginTop: '32px',
+            padding: '32px',
+            background: '#16213e',
+            borderRadius: '16px',
+            border: '1px solid #2a2a3e',
+            maxWidth: '600px'
+          }
+        },
+          React.createElement('h2', { 
+            style: { 
+              fontSize: '20px', 
+              marginBottom: '16px',
+              color: '#6C63FF'
+            }
+          }, '✅ Deploy Successful!'),
+          React.createElement('div', { style: { fontSize: '14px', color: '#aaa', lineHeight: 1.8 }},
+            React.createElement('p', { style: { marginBottom: '12px' }}, '🎉 Your Asset Library is now live on Vercel!'),
+            React.createElement('p', { style: { marginBottom: '12px' }}, '📡 API Endpoint: ' + window.location.origin + '/api/assets'),
+            React.createElement('p', { style: { marginBottom: '12px' }}, '🔧 Next: Configure 3ds Max script with this URL'),
+            React.createElement('a', {
+              href: '/api/assets',
+              style: {
+                display: 'inline-block',
+                marginTop: '16px',
+                padding: '12px 24px',
+                background: '#6C63FF',
+                color: '#fff',
+                textDecoration: 'none',
+                borderRadius: '8px',
+                fontWeight: 600,
+                fontSize: '14px'
+              }
+            }, 'Test API →')
+          )
+        )
+      );
+    }
+    
+    // Render
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(React.createElement(DemoApp));
   </script>
 </body>
 </html>
