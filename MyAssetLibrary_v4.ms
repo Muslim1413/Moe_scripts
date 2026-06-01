@@ -3,7 +3,7 @@
 -- Shaxsiy Asset Library Browser for 3ds Max
 -- ═══════════════════════════════════════════════════════════════
 -- SOZLASH: Bu qatorlarni o'zgartiring
-global MAL_serverUrl  = "https://your-vercel-app.vercel.app/api/assets"
+global MAL_serverUrl  = "https://moe-scripts.vercel.app/api/assets"
 global MAL_tempFolder = (getDir #temp) + "\\MyAssetLib\\"
 -- ═══════════════════════════════════════════════════════════════
 
