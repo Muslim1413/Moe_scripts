@@ -50,22 +50,6 @@ export default async function handler(req, res) {
 
       return res.status(200).json(filtered);
     }
-        filtered = filtered.filter(a => a.subCategory === query.sub);
-      }
-
-      // Search query
-      if (query.q) {
-        const q = query.q.toLowerCase();
-
-        filtered = filtered.filter(a => {
-          return a.name.toLowerCase().includes(q) ||
-                 (Array.isArray(a.tags) && a.tags.some(t => t.toLowerCase().includes(q))) ||
-                 (a.description && a.description.toLowerCase().includes(q));
-        });
-      }
-
-      return res.status(200).json(filtered);
-    }
 
     // POST - Add new asset
     if (method === 'POST') {
