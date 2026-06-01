@@ -1,9 +1,4 @@
 {
-  "version": 2,
-  "name": "my-asset-library",
-  "buildCommand": null,
-  "outputDirectory": ".",
-  "framework": null,
   "functions": {
     "api/**/*.js": {
       "runtime": "nodejs18.x"

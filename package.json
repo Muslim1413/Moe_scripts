@@ -2,8 +2,8 @@
   "name": "my-asset-library",
   "version": "4.0.0",
   "description": "Personal 3D Asset Library - Chaos Cosmos Style",
-  "main": "api/assets.js",
   "type": "commonjs",
+  "main": "api/assets.js",
   "scripts": {
     "dev": "vercel dev",
     "deploy": "vercel --prod"
