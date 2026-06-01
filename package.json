@@ -22,6 +22,6 @@
     "url": "https://github.com/Muslim1413/Moe_scripts"
   },
   "engines": {
-    "node": "18.x"
+    "node": "24.x"
   }
 }
