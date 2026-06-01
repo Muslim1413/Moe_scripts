@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
-// ─── TASVIR CSS (Tabler Icons CDN) ────────────────────────────
-// Bu komponent ishlatilganda HTML da shu link bo'lishi kerak:
-// <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+// ═══════════════════════════════════════════════════════════════
+// MY ASSET LIBRARY - Chaos Cosmos Style Interface
+// ═══════════════════════════════════════════════════════════════
+// Required: <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 
-// ─── KATEGORIYALAR ────────────────────────────────────────────
+// ─── KATEGORIYALAR (Chaos Cosmos style hierarchy) ─────────────
 const CATEGORIES = {
   "3D Models": {
     icon: "ti-box",
@@ -25,7 +26,7 @@ const CATEGORIES = {
   "Creators":    { icon: "ti-user",    color: "#A0AEC0", sub: [] }
 };
 
-const STORAGE_KEY = "mal_assets_v3";
+const STORAGE_KEY = "mal_assets_v4_cosmos";
 
 // ─── STORAGE HOOK ─────────────────────────────────────────────
 // FIX: window.storage mavjudligini tekshirish + fallback localStorage
